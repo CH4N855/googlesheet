@@ -3,205 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Full-Stack Portfolio</title>
+    <title>Dynamic Resume Portfolio</title>
     <style>
         :root {
             --bg-color: #030a16;
             --card-bg: #07152e;
             --accent-cyan: #00f2ff;
-            --accent-blue: #0070f3;
             --text-main: #ffffff;
             --text-muted: #8fa0bc;
+            --border-color: #0f2547;
         }
 
         body {
             background-color: var(--bg-color); color: var(--text-main);
-            font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; overflow-x: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0; padding: 40px 20px;
         }
 
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 10%; border-bottom: 1px solid #0f2547; }
-        .logo { font-weight: bold; font-size: 1.5rem; color: var(--text-main); }
-        nav ul { display: flex; list-style: none; gap: 30px; margin: 0; }
-        nav ul li a { color: var(--text-muted); text-decoration: none; transition: 0.3s; }
-        nav ul li a:hover { color: var(--accent-cyan); }
-
-        .hero { display: flex; max-width: 1100px; margin: 80px auto; padding: 0 20px; align-items: center; gap: 50px; }
-        .hero-img-container {
-            position: relative; width: 320px; height: 320px;
-            background: linear-gradient(45deg, var(--accent-blue), var(--accent-cyan));
-            border-radius: 24px; overflow: hidden; box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
-        }
-        /* Reference to the layout style from image_0d0c63.jpg */
-        .hero-img-container img { width: 100%; height: 100%; object-fit: cover; }
-        .hero-content { flex: 1; }
-        .badge { color: var(--accent-cyan); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 10px; }
-        .hero-content h1 { font-size: 3rem; margin: 0 0 20px 0; font-weight: 800; }
-        .hero-content p { color: var(--text-muted); line-height: 1.7; font-size: 1.1rem; }
+        .container { max-width: 800px; margin: 0 auto; }
         
-        .tech-tags { display: flex; gap: 10px; margin: 20px 0; flex-wrap: wrap; }
-        .tag { background: #0d2347; color: var(--text-main); padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; }
+        /* Profile Header */
+        header { text-align: center; margin-bottom: 60px; }
+        header h1 { font-size: 3rem; margin: 0 0 10px 0; color: var(--text-main); }
+        header p { color: var(--accent-cyan); font-size: 1.1rem; letter-spacing: 1px; }
 
-        .btn-group { display: flex; gap: 15px; }
-        .btn-primary { background: var(--accent-cyan); color: #000; font-weight: bold; padding: 12px 28px; border-radius: 8px; text-decoration: none; transition: 0.3s; }
-        .btn-primary:hover { opacity: 0.9; box-shadow: 0 0 15px rgba(0,242,255,0.4); }
-        .btn-secondary { border: 1px solid var(--text-muted); color: var(--text-main); padding: 12px 28px; border-radius: 8px; text-decoration: none; transition: 0.3s; }
-        .btn-secondary:hover { background: #0d2347; }
-
-        .section-container { max-width: 1100px; margin: 100px auto; padding: 0 20px; text-align: center; }
-        .section-title { font-size: 2.2rem; margin-bottom: 40px; text-transform: uppercase; }
+        /* Section Layout */
+        section { margin-bottom: 50px; }
+        .section-title {
+            font-size: 1.8rem; border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px; margin-bottom: 25px; text-transform: uppercase;
+        }
         .section-title span { color: var(--accent-cyan); }
-        
-        .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; margin-top: 30px; text-align: left; }
-        .card { background: var(--card-bg); border: 1px solid #0f2547; padding: 30px; border-radius: 16px; transition: 0.3s; }
-        .card:hover { transform: translateY(-5px); border-color: var(--accent-cyan); }
-        .card h3 { margin-top: 0; font-size: 1.4rem; color: var(--text-main); }
-        .card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
 
-        .empty-state { color: var(--text-muted); font-style: italic; padding: 40px; }
-        .exp-list { max-width: 800px; margin: 0 auto; text-align: left; }
-        
-        .skills-section { display: flex; gap: 40px; max-width: 1100px; margin: 100px auto; padding: 0 20px; }
-        .skills-left { flex: 1; text-align: left; }
-        .skills-right { width: 350px; background: var(--card-bg); border: 1px solid #0f2547; padding: 30px; border-radius: 16px; text-align: left; }
-        .skills-right h3 { margin-top: 0; display: flex; align-items: center; gap: 10px; }
-        .skill-item-checkbox { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; color: var(--text-muted); }
-        .checkmark { color: var(--accent-cyan); font-weight: bold; }
+        /* Card Component */
+        .card {
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            padding: 25px; border-radius: 12px; margin-bottom: 20px;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .card:hover { transform: translateY(-3px); border-color: var(--accent-cyan); }
+        .card h3 { margin: 0 0 10px 0; font-size: 1.3rem; color: var(--text-main); }
+        .card h4 { margin: 0 0 10px 0; font-size: 1.1rem; color: var(--accent-cyan); font-weight: normal; }
+        .card p { margin: 0; color: var(--text-muted); line-height: 1.6; font-size: 0.95rem; }
+        .date-badge { font-size: 0.85rem; color: var(--text-muted); display: block; margin-top: 10px; font-style: italic; }
+
+        .loading, .empty-state { text-align: center; color: var(--text-muted); font-style: italic; padding: 20px; }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">● HOME</div>
-        <ul>
-            <li><a href="#about">// About</a></li>
-            <li><a href="#experience">// Experience</a></li>
-            <li><a href="#skills">// Skills</a></li>
-            <li><a href="#projects">// Projects</a></li>
-        </ul>
-    </nav>
+    <div class="container">
+        <header>
+            <h1 id="profile-name">Loading...</h1>
+            <p>// Live Data from Google Sheets</p>
+        </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="about">
-        <div class="hero-img-container">
-            <!-- Reference photo name from image_0d0c63.jpg -->
-            <img src="image_0d0c63.jpg" id="hero-img" alt="Keo Kimchan">
-        </div>
-        <div class="hero-content">
-            <!-- ត្រង់ចំណុចទាំងនេះនឹងត្រូវប្តូរ متឌីណាមិកតាម Google Sheet -->
-            <span class="badge" id="hero-badge">Loading...</span>
-            <h1 id="hero-name">Loading...</h1>
-            <p id="hero-bio">Loading your bio information directly from Google Sheets...</p>
-            
-            <div class="tech-tags">
-                <span class="tag">React</span>
-                <span class="tag">Node.js</span>
-                <span class="tag">Tailwind</span>
-                <span class="tag">Next.js</span>
-            </div>
-            <div class="btn-group">
-                <a href="#projects" class="btn-primary">មើល Projects</a>
-                <a href="#" id="cv-link" class="btn-secondary" target="_blank">ទាញយក CV</a>
-            </div>
-        </div>
-    </section>
+        <section id="experience">
+            <h2 class="section-title">បទពិសោធន៍ <span>Experience</span></h2>
+            <div id="experience-loading" class="loading">កំពុងទាញទិន្នន័យ...</div>
+            <div id="experience-container"></div>
+        </section>
 
-    <!-- Projects Section -->
-    <section class="section-container" id="projects">
-        <h2 class="section-title">FEATURED <span>PROJECTS</span></h2>
-        <div id="projects-container" class="grid-layout">
-            <div class="empty-state">NO_PROJECTS_FOUND_IN_DATABASE</div>
-        </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section class="section-container" id="experience">
-        <h2 class="section-title">បទពិសោធន៍ <span>EXPERIENCE</span></h2>
-        <div id="experience-container" class="exp-list">
-            <div class="empty-state" style="text-align:center;">No experiences found. Add some in Admin Panel!</div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section class="skills-section" id="skills">
-        <div class="skills-left">
-            <h2 class="section-title" style="text-align: left; margin-bottom: 20px;">ជំនាញរបស់ខ្ញុំ <span>SKILLS</span></h2>
-            <div id="skills-container" class="grid-layout" style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));">
-                <div class="empty-state">No skills found. Add some in Admin Panel!</div>
-            </div>
-        </div>
-        
-        <div class="skills-right">
-            <h3><span>&lt;/&gt;</span> ជំនាញការងារ</h3>
-            <div class="skill-item-checkbox"><span class="checkmark">✓</span> ដោះស្រាយបញ្ហា (Problem Solving)</div>
-            <div class="skill-item-checkbox"><span class="checkmark">✓</span> ការងារក្រុម (Teamwork)</div>
-            <div class="skill-item-checkbox"><span class="checkmark">✓</span> ការទាក់ទងការងារ (Communication)</div>
-            <div class="skill-item-checkbox"><span class="checkmark">✓</span> រៀនសូត្ររហ័ស (Fast Learner)</div>
-        </div>
-    </section>
+        <section id="study">
+            <h2 class="section-title">ការសិក្សា <span>Education</span></h2>
+            <div id="study-loading" class="loading">កំពុងទាញទិន្នន័យ...</div>
+            <div id="study-container"></div>
+        </section>
+    </div>
 
     <script>
-        // ប្តូរមកប្រើប្រាស់ Route Vercel របស់អ្នក
+        // ប្រើប្រាស់ Route API របស់ Vercel ដែលអ្នកបានបង្កើតពីមុនមក (/api/submit)
         const API_URL = "/api/submit";
 
-        async function fetchPortfolioData() {
+        async function fetchLiveSheetData() {
             try {
                 const response = await fetch(API_URL);
                 const res = await response.json();
 
                 if (res.status === "success") {
-                    
-                    // ១. ចាប់ផ្តើមប្តូរទិន្នន័យ Profile លើ Frontend ពី Google Sheet
-                    if(res.profile) {
-                        if(res.profile.name) document.getElementById('hero-name').innerText = res.profile.name;
-                        if(res.profile.badge) document.getElementById('hero-badge').innerText = res.profile.badge;
-                        if(res.profile.bio) document.getElementById('hero-bio').innerText = res.profile.bio;
-                        if(res.profile.cv_url) document.getElementById('cv-link').href = res.profile.cv_url;
-                        // ប្រសិនបើអ្នកចង់ដាក់លីងរូបភាពលើ Sheet ដែរ:
-                        // if(res.profile.avatar) document.getElementById('hero-img').src = res.profile.avatar;
+                    // ១. បង្ហាញឈ្មោះ (Profile Name)
+                    if (res.profile && res.profile.name) {
+                        document.getElementById('profile-name').innerText = res.profile.name;
                     }
 
-                    // ២. បង្ហាញ Projects
-                    const projContainer = document.getElementById('projects-container');
-                    if(res.projects && res.projects.length > 0) {
-                        projContainer.innerHTML = '';
-                        res.projects.forEach(p => {
-                            projContainer.innerHTML += `
-                                <div class="card">
-                                    <h3>${p.title}</h3>
-                                    <p>${p.description}</p>
-                                    <div style="color:var(--accent-cyan); font-size:0.85rem; margin-top:15px;">${p.tags || ''}</div>
-                                </div>`;
-                        });
-                    }
-
-                    // ៣. បង្ហាញ Experience
+                    // ២. បង្ហាញបទពិសោធន៍ (Experience)
                     const expContainer = document.getElementById('experience-container');
-                    if(res.experiences && res.experiences.length > 0) {
-                        expContainer.innerHTML = '';
-                        res.experiences.forEach(e => {
+                    document.getElementById('experience-loading').style.display = 'none';
+                    if (res.experience && res.experience.length > 0) {
+                        res.experience.forEach(exp => {
                             expContainer.innerHTML += `
-                                <div class="card" style="margin-bottom:20px;">
-                                    <h3>${e.title}</h3>
-                                    <p>${e.description}</p>
+                                <div class="card">
+                                    <h3>${exp.title}</h3>
+                                    <p>${exp.description}</p>
                                 </div>`;
                         });
+                    } else {
+                        expContainer.innerHTML = '<div class="empty-state">មិនទាន់មានទិន្នន័យបទពិសោធន៍ឡើយ។</div>';
                     }
 
-                    // ៤. បង្ហាញ Skills
-                    const skillsContainer = document.getElementById('skills-container');
-                    if(res.skills && res.skills.length > 0) {
-                        skillsContainer.innerHTML = '';
-                        res.skills.forEach(s => {
-                            skillsContainer.innerHTML += `<div class="tag" style="text-align:center; padding:12px;">${s.name}</div>`;
+                    // ៣. បង្ហាញប្រវត្តិសិក្សា (Study / Education)
+                    const studyContainer = document.getElementById('study-container');
+                    document.getElementById('study-loading').style.display = 'none';
+                    if (res.study && res.study.length > 0) {
+                        res.study.forEach(st => {
+                            studyContainer.innerHTML += `
+                                <div class="card">
+                                    <h3>${st.degree}</h3>
+                                    <h4>${st.school}</h4>
+                                    <span class="date-badge">ឆ្នាំសិក្សា៖ ${st.year}</span>
+                                </div>`;
                         });
+                    } else {
+                        studyContainer.innerHTML = '<div class="empty-state">មិនទាន់មានទិន្នន័យការសិក្សាឡើយ។</div>';
                     }
                 }
             } catch (error) {
-                console.error("Error updating frontend fields:", error);
+                console.error("Error loading dynamic data:", error);
+                document.querySelectorAll('.loading').forEach(el => el.innerText = "មានបញ្ហាក្នុងការទាញទិន្នន័យ!");
             }
         }
 
-        window.addEventListener('DOMContentLoaded', fetchPortfolioData);
+        window.addEventListener('DOMContentLoaded', fetchLiveSheetData);
     </script>
 </body>
 </html>
