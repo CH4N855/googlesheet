@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keo Kimchan - Portfolio</title>
+    <title>Live Full-Stack Portfolio</title>
     <style>
         :root {
             --bg-color: #030a16;
@@ -15,115 +15,57 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
+            background-color: var(--bg-color); color: var(--text-main);
+            font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; overflow-x: hidden;
         }
 
-        /* Navigation Bar */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 10%;
-            border-bottom: 1px solid #0f2547;
-        }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 10%; border-bottom: 1px solid #0f2547; }
         .logo { font-weight: bold; font-size: 1.5rem; color: var(--text-main); }
-        .logo span { color: var(--accent-cyan); }
         nav ul { display: flex; list-style: none; gap: 30px; margin: 0; }
         nav ul li a { color: var(--text-muted); text-decoration: none; transition: 0.3s; }
         nav ul li a:hover { color: var(--accent-cyan); }
 
-        /* Hero Section */
-        .hero {
-            display: flex;
-            max-width: 1100px;
-            margin: 80px auto;
-            padding: 0 20px;
-            align-items: center;
-            gap: 50px;
-        }
+        .hero { display: flex; max-width: 1100px; margin: 80px auto; padding: 0 20px; align-items: center; gap: 50px; }
         .hero-img-container {
-            position: relative;
-            width: 320px;
-            height: 320px;
+            position: relative; width: 320px; height: 320px;
             background: linear-gradient(45deg, var(--accent-blue), var(--accent-cyan));
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
+            border-radius: 24px; overflow: hidden; box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
         }
-        .hero-img-container img {
-            width: 100%; height: 100%; object-fit: cover;
-        }
+        /* Reference to the layout style from image_0d0c63.jpg */
+        .hero-img-container img { width: 100%; height: 100%; object-fit: cover; }
         .hero-content { flex: 1; }
-        .badge {
-            color: var(--accent-cyan);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            display: block;
-            margin-bottom: 10px;
-        }
+        .badge { color: var(--accent-cyan); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 10px; }
         .hero-content h1 { font-size: 3rem; margin: 0 0 20px 0; font-weight: 800; }
         .hero-content p { color: var(--text-muted); line-height: 1.7; font-size: 1.1rem; }
         
         .tech-tags { display: flex; gap: 10px; margin: 20px 0; flex-wrap: wrap; }
-        .tag {
-            background: #0d2347; color: var(--text-main);
-            padding: 6px 16px; border-radius: 20px; font-size: 0.85rem;
-        }
+        .tag { background: #0d2347; color: var(--text-main); padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; }
 
         .btn-group { display: flex; gap: 15px; }
-        .btn-primary {
-            background: var(--accent-cyan); color: #000; font-weight: bold;
-            padding: 12px 28px; border-radius: 8px; text-decoration: none; transition: 0.3s;
-        }
+        .btn-primary { background: var(--accent-cyan); color: #000; font-weight: bold; padding: 12px 28px; border-radius: 8px; text-decoration: none; transition: 0.3s; }
         .btn-primary:hover { opacity: 0.9; box-shadow: 0 0 15px rgba(0,242,255,0.4); }
-        .btn-secondary {
-            border: 1px solid var(--text-muted); color: var(--text-main);
-            padding: 12px 28px; border-radius: 8px; text-decoration: none; transition: 0.3s;
-        }
+        .btn-secondary { border: 1px solid var(--text-muted); color: var(--text-main); padding: 12px 28px; border-radius: 8px; text-decoration: none; transition: 0.3s; }
         .btn-secondary:hover { background: #0d2347; }
 
-        /* Main Container Sections */
         .section-container { max-width: 1100px; margin: 100px auto; padding: 0 20px; text-align: center; }
         .section-title { font-size: 2.2rem; margin-bottom: 40px; text-transform: uppercase; }
         .section-title span { color: var(--accent-cyan); }
         
-        /* Grid Layouts */
-        .grid-layout {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px; margin-top: 30px; text-align: left;
-        }
-        .card {
-            background: var(--card-bg); border: 1px solid #0f2547;
-            padding: 30px; border-radius: 16px; transition: 0.3s;
-        }
+        .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; margin-top: 30px; text-align: left; }
+        .card { background: var(--card-bg); border: 1px solid #0f2547; padding: 30px; border-radius: 16px; transition: 0.3s; }
         .card:hover { transform: translateY(-5px); border-color: var(--accent-cyan); }
         .card h3 { margin-top: 0; font-size: 1.4rem; color: var(--text-main); }
         .card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
 
         .empty-state { color: var(--text-muted); font-style: italic; padding: 40px; }
-
-        /* Experience Section Custom */
         .exp-list { max-width: 800px; margin: 0 auto; text-align: left; }
         
-        /* Skills layout styling */
-        .skills-section {
-            display: flex; gap: 40px; max-width: 1100px; margin: 100px auto; padding: 0 20px;
-        }
+        .skills-section { display: flex; gap: 40px; max-width: 1100px; margin: 100px auto; padding: 0 20px; }
         .skills-left { flex: 1; text-align: left; }
-        .skills-right {
-            width: 350px; background: var(--card-bg); border: 1px solid #0f2547;
-            padding: 30px; border-radius: 16px; text-align: left;
-        }
+        .skills-right { width: 350px; background: var(--card-bg); border: 1px solid #0f2547; padding: 30px; border-radius: 16px; text-align: left; }
         .skills-right h3 { margin-top: 0; display: flex; align-items: center; gap: 10px; }
         .skill-item-checkbox { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; color: var(--text-muted); }
         .checkmark { color: var(--accent-cyan); font-weight: bold; }
-
     </style>
 </head>
 <body>
@@ -138,14 +80,18 @@
         </ul>
     </nav>
 
+    <!-- Hero Section -->
     <section class="hero" id="about">
         <div class="hero-img-container">
-            <img src="https://via.placeholder.com/320x320" alt="Keo Kimchan">
+            <!-- Reference photo name from image_0d0c63.jpg -->
+            <img src="image_0d0c63.jpg" id="hero-img" alt="Keo Kimchan">
         </div>
         <div class="hero-content">
-            <span class="badge">✦ ត្រៀមខ្លួនរួចរាល់សម្រាប់ការងារថ្មី</span>
-            <h1>Keo Kimchan</h1>
-            <p>ខ្ញុំជាអ្នកអភិវឌ្ឍន៍ Web applications និងគេហទំព័រដែលមានភាពជំនាញ ល្បឿនលឿន និង UX/UI ជាមួយបទពិសោធន៍ប្រកួតប្រជែង ហើយការងាររបស់ខ្ញុំផ្តោតលើការបង្កើតផលិតផលដែលមានគុណភាពខ្ពស់។</p>
+            <!-- ត្រង់ចំណុចទាំងនេះនឹងត្រូវប្តូរ متឌីណាមិកតាម Google Sheet -->
+            <span class="badge" id="hero-badge">Loading...</span>
+            <h1 id="hero-name">Loading...</h1>
+            <p id="hero-bio">Loading your bio information directly from Google Sheets...</p>
+            
             <div class="tech-tags">
                 <span class="tag">React</span>
                 <span class="tag">Node.js</span>
@@ -154,11 +100,12 @@
             </div>
             <div class="btn-group">
                 <a href="#projects" class="btn-primary">មើល Projects</a>
-                <a href="#" class="btn-secondary">ទាញយក CV</a>
+                <a href="#" id="cv-link" class="btn-secondary" target="_blank">ទាញយក CV</a>
             </div>
         </div>
     </section>
 
+    <!-- Projects Section -->
     <section class="section-container" id="projects">
         <h2 class="section-title">FEATURED <span>PROJECTS</span></h2>
         <div id="projects-container" class="grid-layout">
@@ -166,6 +113,7 @@
         </div>
     </section>
 
+    <!-- Experience Section -->
     <section class="section-container" id="experience">
         <h2 class="section-title">បទពិសោធន៍ <span>EXPERIENCE</span></h2>
         <div id="experience-container" class="exp-list">
@@ -173,6 +121,7 @@
         </div>
     </section>
 
+    <!-- Skills Section -->
     <section class="skills-section" id="skills">
         <div class="skills-left">
             <h2 class="section-title" style="text-align: left; margin-bottom: 20px;">ជំនាញរបស់ខ្ញុំ <span>SKILLS</span></h2>
@@ -191,8 +140,8 @@
     </section>
 
     <script>
-        // ប្តូរដាក់ API URL របស់ Vercel ឬ Google Apps Script របស់អ្នក
-        const API_URL = "https://script.google.com/macros/s/AKfycbzsf97OBWkhY19Ita3s-xQ75yrrYWsIbl7eNSpuMDQJoEhlSu1AJLR7wuDOdb6tYo0z/exec";
+        // ប្តូរមកប្រើប្រាស់ Route Vercel របស់អ្នក
+        const API_URL = "/api/submit";
 
         async function fetchPortfolioData() {
             try {
@@ -200,9 +149,20 @@
                 const res = await response.json();
 
                 if (res.status === "success") {
-                    // 1. រៀបចំបង្ហាញ Projects
+                    
+                    // ១. ចាប់ផ្តើមប្តូរទិន្នន័យ Profile លើ Frontend ពី Google Sheet
+                    if(res.profile) {
+                        if(res.profile.name) document.getElementById('hero-name').innerText = res.profile.name;
+                        if(res.profile.badge) document.getElementById('hero-badge').innerText = res.profile.badge;
+                        if(res.profile.bio) document.getElementById('hero-bio').innerText = res.profile.bio;
+                        if(res.profile.cv_url) document.getElementById('cv-link').href = res.profile.cv_url;
+                        // ប្រសិនបើអ្នកចង់ដាក់លីងរូបភាពលើ Sheet ដែរ:
+                        // if(res.profile.avatar) document.getElementById('hero-img').src = res.profile.avatar;
+                    }
+
+                    // ២. បង្ហាញ Projects
                     const projContainer = document.getElementById('projects-container');
-                    if(res.projects.length > 0) {
+                    if(res.projects && res.projects.length > 0) {
                         projContainer.innerHTML = '';
                         res.projects.forEach(p => {
                             projContainer.innerHTML += `
@@ -214,9 +174,9 @@
                         });
                     }
 
-                    // 2. រៀបចំបង្ហាញ Experience
+                    // ៣. បង្ហាញ Experience
                     const expContainer = document.getElementById('experience-container');
-                    if(res.experiences.length > 0) {
+                    if(res.experiences && res.experiences.length > 0) {
                         expContainer.innerHTML = '';
                         res.experiences.forEach(e => {
                             expContainer.innerHTML += `
@@ -227,9 +187,9 @@
                         });
                     }
 
-                    // 3. រៀបចំបង្ហាញ Skills ពី Database
+                    // ៤. បង្ហាញ Skills
                     const skillsContainer = document.getElementById('skills-container');
-                    if(res.skills.length > 0) {
+                    if(res.skills && res.skills.length > 0) {
                         skillsContainer.innerHTML = '';
                         res.skills.forEach(s => {
                             skillsContainer.innerHTML += `<div class="tag" style="text-align:center; padding:12px;">${s.name}</div>`;
@@ -237,11 +197,10 @@
                     }
                 }
             } catch (error) {
-                console.error("Error fetching data from Google Sheet:", error);
+                console.error("Error updating frontend fields:", error);
             }
         }
 
-        // ដំណើរការ Fetch នៅពេលបើក Page ភ្លាម
         window.addEventListener('DOMContentLoaded', fetchPortfolioData);
     </script>
 </body>
