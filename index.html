@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        :root {
+            --primary: #0070f3;
+            --background: #ffffff;
+            --text: #333333;
+            --gray: #eaeaea;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        header {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 80px 20px 40px;
+            text-align: center;
+        }
+        h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .subtitle { color: #666; font-size: 1.2rem; }
+        
+        main { max-width: 600px; margin: 0 auto; padding: 20px; }
+        
+        section { margin-bottom: 60px; }
+        h2 { border-bottom: 2px solid var(--gray); padding-bottom: 10px; }
+        
+        .project-card {
+            background: #fafafa;
+            border: 1px solid var(--gray);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* Form Styling */
+        form { display: flex; flex-direction: column; gap: 15px; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        input, textarea {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button {
+            background: var(--primary);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        button:hover { background: #0051a2; }
+        #status-msg { text-align: center; font-weight: bold; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Hello, I'm a Developer</h1>
+        <p class="subtitle">Welcome to my full-stack Vercel + Google Sheets portfolio.</p>
+    </header>
+
+    <main>
+        <section id="projects">
+            <h2>My Projects</h2>
+            <div class="project-card">
+                <h3>🚀 Project Alpha</h3>
+                <p>A cool web app hosted seamlessly on Vercel utilizing microservices.</p>
+            </div>
+            <div class="project-card">
+                <h3>📊 Google Sheet DB</h3>
+                <p>Using Google spreadsheets as a serverless datastore solution.</p>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Hire Me / Contact</h2>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" required placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required placeholder="your.email@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="screenshot">Project Screenshot / Attachment</label>
+                    <input type="file" id="screenshot" accept="image/*" required>
+                </div>
+                <button type="submit" id="submitBtn">Send Message</button>
+            </form>
+            <div id="status-msg"></div>
+        </section>
+    </main>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const statusMsg = document.getElementById('status-msg');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            statusMsg.style.color = "blue";
+            statusMsg.innerText = "Processing image and sending...";
+            submitBtn.disabled = true;
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const fileInput = document.getElementById('screenshot');
+            const file = fileInput.files[0];
+
+            // Convert image to Base64
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            
+            reader.onload = function() {
+                const base64Data = reader.result;
+
+                const payload = {
+                    name: name,
+                    email: email,
+                    imageFile: base64Data,
+                    imageName: file.name
+                };
+
+                // Send data directly to Vercel Serverless Function API path
+                fetch('/api/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    statusMsg.style.color = "green";
+                    statusMsg.innerText = "Success! Your entry was saved to Google Sheets.";
+                    document.getElementById('contactForm').reset();
+                })
+                .catch(err => {
+                    statusMsg.style.color = "red";
+                    statusMsg.innerText = "Something went wrong. Please try again.";
+                    console.error(err);
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                });
+            };
+        });
+    </script>
+</body>
+</html>
